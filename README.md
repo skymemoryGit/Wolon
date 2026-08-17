@@ -46,6 +46,20 @@ Si comanda in tre modi, perché il trascinamento da solo non basta
 - frecce ‹ › ai lati
 - tastiera: il piano è focusabile, frecce direzionali per girarlo
 
+### Il tavolo non deve rubare lo scorrimento
+
+Su telefono il piano occupa quasi tutta la larghezza: senza precauzioni, ogni
+tentativo di scendere lo faceva girare. Tre difese, dalla più esterna:
+
+1. `touch-action: pan-y` sul piano: lo scorrimento verticale resta al browser.
+2. **Controllo del raggio.** Il piano è un `div` quadrato con `border-radius`,
+   quindi gli angoli ricevono comunque gli eventi. `insideTable()` misura la
+   distanza dal centro: fuori dal cerchio il tocco non viene nemmeno preso, e
+   la pagina scorre.
+3. **Gate sulla direzione.** Dentro il cerchio, ai primi 8px di movimento si
+   decide: se il dito va più in verticale che in orizzontale il tavolo non si
+   muove affatto. Col mouse questo gate non serve e non viene applicato.
+
 Il nome del piatto al centro è in `aria-live="polite"`, così anche gli screen
 reader annunciano il cambio.
 
@@ -105,6 +119,13 @@ traffico di un ristorante.
   sotto la home bar dell'iPhone, e il `body` ha un padding che evita che copra
   la fine del footer. Da 768px in su sparisce, perché il pulsante in header è
   già sempre visibile.
+- **La barra entra solo quando il tavolo è passato.** Sui telefoni più bassi
+  copriva la didascalia del piatto sotto il tavolo: ora sale quando
+  `turntable.bottom < innerHeight`, cioè quando la didascalia è al sicuro. Si
+  ritira anche dentro la sezione *Prenota*, dove i pulsanti grandi ci sono già.
+  Per questo il CTA resta anche nell'header su mobile, con etichetta accorciata
+  a "Prenota": altrimenti sulla prima schermata non ci sarebbe modo di
+  prenotare senza scorrere.
 - **Ordine dell'hero invertito**: titolo → tavolo rotante → testo e CTA. Su
   telefono l'immagine forte arriva subito, senza far scorrere prima un muro di
   parole. Su desktop il tavolo torna a fianco del testo (`grid-template-areas`).

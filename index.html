@@ -48,7 +48,11 @@
 
     <div class="header__actions">
       <a class="btn btn--ghost btn--sm hide-sm" href="tel:+390451234567">045 123 4567</a>
-      <a class="btn btn--brass btn--sm" href="#prenota">Prenota un tavolo</a>
+      <!-- .btn è inline-flex: lo span è un flex item e prende già il gap del
+           bottone, quindi non serve uno spazio esplicito fra le due parole.
+           Il testo nel DOM resta però "Prenotaun tavolo": l'aria-label ha la
+           precedenza e assicura che venga letto correttamente. -->
+      <a class="btn btn--brass btn--sm" href="#prenota" aria-label="Prenota un tavolo">Prenota<span class="hide-sm">un tavolo</span></a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">
         <span class="nav-toggle__bars" aria-hidden="true"><i></i><i></i></span>
         <span class="nav-toggle__label">Menu</span>
@@ -148,7 +152,7 @@
           <button class="rot" type="button" data-rotate="-1" aria-label="Piatto precedente">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-          <p class="turntable__hint">Trascina il tavolo, o usa le frecce</p>
+          <p class="turntable__hint">Gira il tavolo di lato, o usa le frecce</p>
           <button class="rot" type="button" data-rotate="1" aria-label="Piatto successivo">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>

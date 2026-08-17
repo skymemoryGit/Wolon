@@ -326,7 +326,10 @@ table{ border-collapse:collapse; }
     inset 0 0 0 9px var(--brass),          /* rimlight in ottone */
     inset 0 0 0 10px rgb(11 33 34 / .3),
     var(--sh-3);
-  touch-action:none;      /* il drag orizzontale non deve rubare lo scroll verticale */
+  /* pan-y: lo scorrimento verticale resta al browser, così passando il dito
+     sopra il tavolo la pagina scende invece di far girare i piatti. Solo il
+     movimento orizzontale arriva al JS, che comunque verifica l'intenzione. */
+  touch-action:pan-y;
   cursor:grab;
 }
 .turntable__stage.is-dragging{ cursor:grabbing; }
@@ -710,7 +713,12 @@ table{ border-collapse:collapse; }
   background:color-mix(in srgb, var(--porcelain) 92%, transparent);
   backdrop-filter:blur(14px) saturate(1.4);
   border-top:1px solid var(--line);
+  transition:translate var(--t-base) var(--ease);
 }
+/* Parte fuori schermo: sulla prima schermata coprirebbe la didascalia del
+   piatto sotto il tavolo. main.js la fa salire quando il tavolo è passato. */
+.js .actionbar{ translate:0 100%; }
+.js .actionbar.is-in{ translate:0 0; }
 .actionbar__btn{
   display:inline-flex; align-items:center; justify-content:center; gap:.45rem;
   min-height:52px; padding:.8rem 1rem;
@@ -770,15 +778,34 @@ table{ border-collapse:collapse; }
 
   .hide-sm{ display:none; }
 
-  /* header ridotto all'essenziale: il CTA sta nella barra in basso */
-  .header__inner{ min-height:62px; }
-  .header__actions .btn--brass{ display:none; }
-  .brand__mark{ width:30px; height:30px; }
-  .brand__word{ font-size:1.15rem; }
+  /* Header compatto ma il CTA resta: la barra in basso è nascosta sulla prima
+     schermata, quindi senza questo pulsante non ci sarebbe modo di prenotare
+     senza scorrere. L'etichetta si accorcia a "Prenota". */
+  .header__inner{ min-height:62px; gap:var(--sp-2); }
+  .brand__mark{ width:28px; height:28px; }
+  .brand__word{ font-size:1.1rem; }
+  /* "Menu" resta scritto: la sola icona si capisce meno e lascerebbe il
+     pulsante senza nome accessibile. */
+  .nav-toggle{ padding:.5rem .4rem; }
+  .header__actions .btn--sm{ padding:.6rem .8rem; }
 
-  /* titolo un filo più contenuto, così hero e tavolo stanno in una schermata */
-  .hero__title{ font-size:clamp(2.5rem,10.5vw,3.25rem); }
+  /* titolo un filo più contenuto, così hero e tavolo stanno in una schermata.
+     line-height più aperto: con .92 la riga in ottone sotto "autentica" finiva
+     appiccicata a "Girate il tavolo". */
+  .hero__title{ font-size:clamp(2.5rem,10.5vw,3.25rem); line-height:1.06; }
+  .hero__title em{ text-underline-offset:.14em; }
   .hero__lead{ font-size:var(--fs-base); }
+
+  /* profilo in ottone e perno proporzionati al piano più piccolo */
+  .turntable__stage{
+    box-shadow:
+      inset 0 0 0 2px rgb(255 255 255 / .1),
+      inset 0 0 0 6px var(--brass),
+      inset 0 0 0 7px rgb(11 33 34 / .3),
+      var(--sh-3);
+  }
+  .turntable__stage::after{ inset:8px; }
+  .turntable__pivot{ width:11%; }
 
   /* CTA a tutta larghezza: bersagli grandi, uno per riga */
   .hero__cta,
