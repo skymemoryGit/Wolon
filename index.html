@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wolon — Cucina cinese autentica a Verona</title>
+<meta name="description" content="Ristorante cinese a Verona, Via Marcantonio Bentegodi 6. Dim sum fatti a mano, piatti al wok, 9,4/10 su 673 recensioni. Prenota un tavolo.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Le animazioni d'ingresso partono solo se il JS gira: senza questa classe
+     il contenuto resta visibile invece di rimanere a opacity 0. -->
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Salta al contenuto</a>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="header">
+  <div class="shell header__inner">
+    <a class="brand" href="#main" aria-label="Wolon, torna all'inizio">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="7"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M92 26.5A45 45 0 1 0 101 62"/>
+          <path d="M27 44h66L60 100 44.5 73.5 60 66"/>
+          <path d="M95.5 20.5c7-2.5 14.5-2 19.5 1.5-1.5 6-6.5 11-13 12.5-6 1.5-11.5-.5-14-4.5-2-3.5 1-7.5 7.5-9.5z"/>
+          <path d="M114 22.5c-7 3-13 7.5-17.5 12.5" stroke-width="4.5"/>
+        </svg>
+      </span>
+      <span class="brand__word">Wolon</span>
+    </a>
+
+    <!-- Menu: bozza generica, da definire -->
+    <nav class="nav" aria-label="Navigazione principale">
+      <ul class="nav__list">
+        <li><a href="#piatti">Piatti</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#recensioni">Recensioni</a></li>
+        <li><a href="#sede">Dove siamo</a></li>
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <a class="btn btn--ghost btn--sm hide-sm" href="tel:+390451234567">045 123 4567</a>
+      <a class="btn btn--brass btn--sm" href="#prenota">Prenota un tavolo</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">
+        <span class="nav-toggle__bars" aria-hidden="true"><i></i><i></i></span>
+        <span class="nav-toggle__label">Menu</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <ul>
+      <li><a href="#piatti">Piatti</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#recensioni">Recensioni</a></li>
+      <li><a href="#sede">Dove siamo</a></li>
+      <li><a href="tel:+390451234567">045 123 4567</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="shell hero__inner">
+
+    <div class="hero__head">
+      <p class="eyebrow rise">Verona · Via Bentegodi 6</p>
+
+      <h1 class="hero__title rise" style="--d:70ms">
+        Cucina cinese<br>
+        <em>autentica.</em><br>
+        Girate il tavolo.
+      </h1>
+    </div>
+
+    <div class="hero__body">
+      <p class="hero__lead rise" style="--d:140ms">
+        Dim sum piegati a mano ogni mattina, wok a fuoco vivo, una sala di velluto
+        e ottone a due passi dall'Arena. Niente all you can eat: solo i piatti
+        che si mangiano in Cina.
+      </p>
+
+      <div class="hero__cta rise" style="--d:210ms">
+        <a class="btn btn--brass" href="#prenota">Prenota un tavolo</a>
+        <a class="btn btn--outline" href="#menu">Guarda i piatti</a>
+      </div>
+
+      <dl class="scorecard rise" style="--d:280ms">
+        <div class="scorecard__item">
+          <dt>TheFork</dt>
+          <dd><b>9,4</b><span>/10</span></dd>
+        </div>
+        <div class="scorecard__item">
+          <dt>Recensioni</dt>
+          <dd><b>673</b></dd>
+        </div>
+        <div class="scorecard__item">
+          <dt>Conto medio</dt>
+          <dd><b>20</b><span>&nbsp;€</span></dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- ---- SIGNATURE: il tavolo rotante ---- -->
+    <div class="hero__table">
+      <div class="turntable" id="turntable">
+        <div class="turntable__plate">
+        <div class="turntable__stage">
+
+          <div class="turntable__disc" id="disc">
+            <!-- i piatti vengono posizionati in cerchio dal CSS via --i;
+                 ritagli quadrati a 400px, il piano non li mostra più grandi -->
+            <figure class="dish" style="--i:0">
+              <img src="assets/img/dish-cetrioli.jpg" alt="Insalata di cetrioli con arachidi e salsa agropiccante, vista dall'alto" width="400" height="400" loading="eager" decoding="async" fetchpriority="high">
+            </figure>
+            <figure class="dish" style="--i:1">
+              <img src="assets/img/dish-wonton.jpg" alt="Wonton in salsa piccante con sesamo e cipollotto" width="400" height="400" loading="eager" decoding="async">
+            </figure>
+            <figure class="dish" style="--i:2">
+              <img src="assets/img/dish-riso.jpg" alt="Riso alla cantonese con gamberi e uovo" width="400" height="400" loading="eager" decoding="async">
+            </figure>
+            <figure class="dish" style="--i:3">
+              <img src="assets/img/dish-padthai.jpg" alt="Pad thai con gamberi, arachidi e lime" width="400" height="400" loading="eager" decoding="async">
+            </figure>
+          </div>
+          <span class="turntable__pivot" aria-hidden="true"></span>
+        </div>
+
+        <!-- etichetta: al centro del piano da tablet in su, sotto il piano su mobile -->
+        <div class="turntable__hub">
+          <p class="turntable__kicker">In tavola</p>
+          <p class="turntable__name" id="dish-name" aria-live="polite">Insalata di cetrioli</p>
+          <p class="turntable__note" id="dish-note">Cetriolo, aglio, arachide, salsa agropiccante</p>
+        </div>
+        </div>
+
+        <div class="turntable__controls">
+          <button class="rot" type="button" data-rotate="-1" aria-label="Piatto precedente">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <p class="turntable__hint">Trascina il tavolo, o usa le frecce</p>
+          <button class="rot" type="button" data-rotate="1" aria-label="Piatto successivo">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ IL WOK ============ -->
+<section class="wok" id="piatti">
+  <div class="shell wok__inner">
+    <figure class="wok__img reveal">
+      <img src="assets/img/wok-crop.jpg" alt="Noodles saltati lanciati in aria dal wok. Il wok: molto più di una padella — calore, movimento, tecnica" width="900" height="950" loading="lazy" decoding="async">
+    </figure>
+    <div class="wok__copy">
+      <p class="eyebrow eyebrow--brass reveal">La cucina</p>
+      <!-- "Il wok è molto più di una padella" è già scritto nell'immagine
+           accanto: qui va l'altra frase, non la stessa due volte. -->
+      <h2 class="h2 reveal">Cuoce veloce,<br>non in fretta.</h2>
+      <p class="reveal">
+        Il calore alto tiene le verdure croccanti, la carne succosa e i sapori
+        vivi. È la ragione per cui certi piatti esistono solo qui, e non nel
+        forno di casa.
+      </p>
+      <ul class="facts reveal">
+        <li><b>8</b> tipi di raviolo, piegati a mano</li>
+        <li><b>9,5</b> il voto sul cibo su TheFork</li>
+        <li><b>0</b> buffet, 0 all you can eat</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU (bozza) ============ -->
+<section class="menu" id="menu">
+  <div class="shell">
+    <div class="section-head">
+      <p class="eyebrow eyebrow--brass reveal">Menu</p>
+      <h2 class="h2 reveal">Una bozza di quello<br>che troverete.</h2>
+      <p class="section-head__lead reveal">
+        Il menu completo è in lavorazione. Intanto, l'ossatura — e i tre piatti
+        con cui quasi tutti iniziano.
+      </p>
+    </div>
+
+    <div class="menu__grid">
+      <article class="course reveal">
+        <h3>Per cominciare</h3>
+        <ul class="course__list">
+          <li><span>Insalata di cetrioli</span><i></i><b>6 €</b></li>
+          <li><span>Zampe di gallina disossate</span><i></i><b>7 €</b></li>
+          <li><span>Uovo centenario con tofu</span><i></i><b>7 €</b></li>
+        </ul>
+      </article>
+
+      <article class="course course--soon reveal">
+        <h3>Dim sum</h3>
+        <p>Anatra, gambero, manzo, calamaro, chashu, merluzzo, verdura, shaomai ai frutti di mare.</p>
+        <p class="course__soon">Prezzi in arrivo</p>
+      </article>
+
+      <article class="course course--soon reveal">
+        <h3>Dal wok</h3>
+        <p>Mapo tofu, costine di maiale all'aglio, spaghetti di soia, anatra, riso alla cantonese.</p>
+        <p class="course__soon">Prezzi in arrivo</p>
+      </article>
+
+      <article class="course course--soon reveal">
+        <h3>Vino e bevande</h3>
+        <p>Carta dei vini in sala, bollicine venete e rossi valpolicella accanto ai classici cinesi.</p>
+        <p class="course__soon">In definizione</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRENOTA ============ -->
+<section class="booking" id="prenota">
+  <div class="shell booking__inner">
+    <div class="booking__copy">
+      <p class="eyebrow eyebrow--brass reveal">Prenota</p>
+      <h2 class="h2 reveal">Il tavolo grande<br>gira meglio in sei.</h2>
+      <p class="reveal">
+        Pranzo e cena, sette giorni su sette ad agosto. Per i tavoli rotondi da
+        sei o più conviene chiamare: sono pochi e vanno via presto.
+      </p>
+      <div class="booking__cta reveal">
+        <a class="btn btn--brass btn--lg" href="tel:+390451234567">Chiama 045 123 4567</a>
+        <a class="btn btn--outline-light btn--lg" href="https://www.thefork.it/ristorante/wolon-r825165" target="_blank" rel="noopener">
+          Prenota su TheFork
+          <svg class="btn__ext" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+    <figure class="booking__img reveal">
+      <img src="assets/img/tavola-sm.jpg" alt="Tavola apparecchiata con involtini primavera, insalata di cetrioli e sedia in velluto verde petrolio" width="900" height="1125" loading="lazy" decoding="async">
+    </figure>
+  </div>
+</section>
+
+<!-- ============ RECENSIONI ============ -->
+<section class="reviews" id="recensioni">
+  <div class="shell">
+    <div class="section-head section-head--center">
+      <p class="eyebrow eyebrow--brass reveal">Recensioni</p>
+      <h2 class="h2 reveal">673 persone,<br>9,4 su 10.</h2>
+    </div>
+
+    <dl class="ratings reveal">
+      <div class="ratings__big">
+        <dt>Media TheFork</dt>
+        <dd><b>9,4</b><span>/10</span></dd>
+      </div>
+      <div class="ratings__bars">
+        <div class="bar" style="--v:95">
+          <dt>Cibo</dt>
+          <dd>9,5</dd>
+        </div>
+        <div class="bar" style="--v:94">
+          <dt>Servizio</dt>
+          <dd>9,4</dd>
+        </div>
+        <div class="bar" style="--v:93">
+          <dt>Atmosfera</dt>
+          <dd>9,3</dd>
+        </div>
+      </div>
+    </dl>
+
+    <ul class="quotes">
+      <li class="quote reveal">
+        <p class="quote__score">10</p>
+        <blockquote><p>Cucina autentica cinese paragonabile a quella autentica provata in Cina.</p></blockquote>
+        <footer><cite>Fabrizio F.</cite> · TheFork</footer>
+      </li>
+      <li class="quote reveal">
+        <p class="quote__score">9,5</p>
+        <blockquote><p>Miglior ristorante cinese di Verona, ambiente fresco e cibo ottimo e diverso dai soliti sapori.</p></blockquote>
+        <footer><cite>Mattia M.</cite> · TheFork</footer>
+      </li>
+      <li class="quote reveal">
+        <p class="quote__score">10</p>
+        <blockquote><p>Location curata nei dettagli. Diventerà tappa fissa per i futuri viaggi a Verona.</p></blockquote>
+        <footer><cite>Edvige G.</cite> · TheFork</footer>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ SEDE + ORARI ============ -->
+<section class="place" id="sede">
+  <div class="shell place__inner">
+
+    <div class="place__copy">
+      <p class="eyebrow eyebrow--brass reveal">Dove siamo</p>
+      <h2 class="h2 reveal">Via Marcantonio<br>Bentegodi, 6.</h2>
+      <p class="reveal">37122 Verona — a due passi dall'Arena, parcheggio Arena a 300 m.</p>
+
+      <table class="hours reveal">
+        <caption class="sr-only">Orari di apertura</caption>
+        <tbody>
+          <tr><th scope="row">Lunedì</th><td>12:00–14:30</td><td>18:30–23:00</td></tr>
+          <tr><th scope="row">Martedì</th><td>12:00–14:30</td><td>18:30–23:00</td></tr>
+          <tr class="hours--closed"><th scope="row">Mercoledì</th><td colspan="2">Chiuso</td></tr>
+          <tr><th scope="row">Giovedì</th><td>12:00–14:30</td><td>18:30–23:00</td></tr>
+          <tr><th scope="row">Venerdì</th><td>12:00–14:30</td><td>18:30–23:00</td></tr>
+          <tr><th scope="row">Sabato</th><td>12:00–14:30</td><td>18:30–23:00</td></tr>
+          <tr><th scope="row">Domenica</th><td>12:00–14:30</td><td>18:30–23:00</td></tr>
+        </tbody>
+      </table>
+
+      <div class="place__links reveal">
+        <a class="btn btn--outline" href="https://maps.google.com/?q=Via+Marcantonio+Bentegodi+6+37122+Verona" target="_blank" rel="noopener">
+          Apri in Maps
+          <svg class="btn__ext" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="tel:+390451234567">045 123 4567</a>
+      </div>
+    </div>
+
+    <div class="place__gallery">
+      <figure class="reveal">
+        <img src="assets/img/sala-sm.jpg" alt="Sala di Wolon: parete di bottiglie in rovere, sedie in velluto verde petrolio e lampade in ottone" width="900" height="1125" loading="lazy" decoding="async">
+      </figure>
+      <figure class="reveal">
+        <img src="assets/img/sala-2-sm.jpg" alt="Tavoli rotondi con piano rotante e sedie in velluto petrolio profilate in ottone" width="900" height="1125" loading="lazy" decoding="async">
+      </figure>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer__top">
+      <a class="brand brand--lg" href="#main" aria-label="Wolon, torna all'inizio">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="7"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M92 26.5A45 45 0 1 0 101 62"/>
+            <path d="M27 44h66L60 100 44.5 73.5 60 66"/>
+            <path d="M95.5 20.5c7-2.5 14.5-2 19.5 1.5-1.5 6-6.5 11-13 12.5-6 1.5-11.5-.5-14-4.5-2-3.5 1-7.5 7.5-9.5z"/>
+            <path d="M114 22.5c-7 3-13 7.5-17.5 12.5" stroke-width="4.5"/>
+          </svg>
+        </span>
+        <span class="brand__word">Wolon</span>
+      </a>
+
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h2>Contatti</h2>
+          <ul>
+            <li><a href="tel:+390451234567">045 123 4567</a></li>
+            <li><a href="mailto:info@wolon.it">info@wolon.it</a></li>
+            <li>Via M. Bentegodi 6<br>37122 Verona</li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h2>Prenota e ordina</h2>
+          <ul>
+            <li><a href="https://www.thefork.it/ristorante/wolon-r825165" target="_blank" rel="noopener">TheFork</a></li>
+            <li><a href="https://deliveroo.it/it/menu/verona/verona-centro/wolon-via-bentegodi-6" target="_blank" rel="noopener">Deliveroo</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h2>Social</h2>
+          <ul>
+            <li><a href="#" aria-label="Instagram di Wolon">Instagram</a></li>
+            <li><a href="https://www.tripadvisor.it/Restaurant_Review-g187871-d28003071-Reviews-Wolon_Ristorante_Cinese-Verona_Province_of_Verona_Veneto.html" target="_blank" rel="noopener">Tripadvisor</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© <span id="year">2026</span> Wolon · Ristorante cinese, Verona</p>
+      <p class="footer__credit">Powered by <b>J.Ye</b></p>
+    </div>
+  </div>
+</footer>
+
+<!-- Barra azioni fissa: solo su mobile, dove è la via più corta per prenotare -->
+<div class="actionbar">
+  <a class="actionbar__btn actionbar__btn--call" href="tel:+390451234567">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 3 5a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Chiama
+  </a>
+  <a class="actionbar__btn actionbar__btn--book" href="#prenota">Prenota un tavolo</a>
+</div>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
+

@@ -1,0 +1,863 @@
+/* =========================================================
+   WOLON — Verona
+   Palette derivata dalla sala: velluto verde petrolio,
+   profili in ottone, rovere chiaro, porcellana.
+   ========================================================= */
+
+/* ---------- 1. TOKEN ---------- */
+:root{
+  /* colore */
+  --ink:        #0B2122;   /* petrolio quasi nero  */
+  --teal:       #123F41;   /* velluto delle sedie  */
+  --teal-2:     #1A5658;
+  --teal-line:  #2C6C6E;
+
+  --brass:      #C9A227;   /* profili in ottone    */
+  --brass-lt:   #E3C766;   /* ottone su fondo scuro */
+  --oak:        #C08B4E;   /* rovere del tavolo    */
+  --oak-lt:     #D9A96D;
+
+  --porcelain:  #F5F7F5;   /* fondo pagina         */
+  --paper:      #FFFFFF;
+  --line:       #DBE2E0;
+  --muted:      #4E6465;   /* 5,85:1 su porcelain  */
+  --muted-dark: #9FB6B5;   /* 6,4:1 su teal        */
+
+  /* tipografia */
+  --display: 'Archivo', system-ui, sans-serif;
+  --body:    'Instrument Sans', system-ui, sans-serif;
+  --mono:    'IBM Plex Mono', ui-monospace, monospace;
+
+  /* scala tipografica */
+  --fs-xs:   0.75rem;
+  --fs-sm:   0.875rem;
+  --fs-base: 1.0625rem;
+  --fs-lg:   1.1875rem;
+  --fs-xl:   clamp(1.375rem, 1.1rem + 1.1vw, 1.75rem);
+  --fs-h2:   clamp(2.125rem, 1.35rem + 3.2vw, 3.75rem);
+  --fs-h1:   clamp(2.75rem, 1.6rem + 4.6vw, 5rem);
+
+  /* spazio */
+  --sp-1: 0.5rem;
+  --sp-2: 0.75rem;
+  --sp-3: 1rem;
+  --sp-4: 1.5rem;
+  --sp-5: 2rem;
+  --sp-6: 3rem;
+  --sp-7: 4rem;
+  --sp-8: 6rem;
+  --sp-9: 8rem;
+
+  --section-y: clamp(4rem, 8vw, 8rem);
+  --shell: 76rem;
+  --radius: 4px;
+
+  /* elevazione */
+  --sh-1: 0 1px 2px rgb(11 33 34 / .06), 0 4px 12px rgb(11 33 34 / .05);
+  --sh-2: 0 2px 6px rgb(11 33 34 / .08), 0 18px 40px rgb(11 33 34 / .10);
+  --sh-3: 0 30px 80px rgb(11 33 34 / .22);
+
+  /* motion */
+  --ease: cubic-bezier(.2,.7,.3,1);
+  --t-fast: 140ms;
+  --t-base: 260ms;
+  --t-slow: 620ms;
+
+  /* z-index */
+  --z-nav: 100;
+}
+
+/* ---------- 2. RESET ---------- */
+*,*::before,*::after{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--porcelain);
+  color:var(--ink);
+  font:400 var(--fs-base)/1.6 var(--body);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg{ display:block; max-width:100%; }
+img{ height:auto; }
+h1,h2,h3,p,dl,dd,figure,blockquote{ margin:0; }
+ul{ margin:0; padding:0; list-style:none; }
+a{ color:inherit; }
+button{ font:inherit; color:inherit; background:none; border:0; }
+/* niente attesa di 300ms sul tap prima che il tocco venga registrato */
+a,button,summary,[role="button"]{ touch-action:manipulation; }
+table{ border-collapse:collapse; }
+
+:where(a,button,[tabindex]):focus-visible{
+  outline:3px solid var(--brass);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0;
+  margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap;
+}
+.skip-link{
+  position:fixed; top:0; left:50%; translate:-50% -120%;
+  z-index:200; padding:.75rem 1.25rem;
+  background:var(--brass); color:var(--ink);
+  font:600 var(--fs-sm)/1 var(--body); text-decoration:none;
+  border-radius:0 0 var(--radius) var(--radius);
+  transition:translate var(--t-base) var(--ease);
+}
+.skip-link:focus{ translate:-50% 0; }
+
+/* ---------- 3. LAYOUT ---------- */
+.shell{
+  width:100%; max-width:var(--shell);
+  margin-inline:auto;
+  padding-inline:clamp(1.25rem, 4vw, 2.5rem);
+}
+
+/* ---------- 4. TIPOGRAFIA CONDIVISA ---------- */
+.eyebrow{
+  margin:0 0 var(--sp-3);
+  font:500 var(--fs-xs)/1 var(--mono);
+  letter-spacing:.16em; text-transform:uppercase;
+  color:var(--muted);
+}
+.eyebrow--brass{ color:var(--oak); }
+
+.h2{
+  font-family:var(--display);
+  font-variation-settings:'wdth' 112,'wght' 750;
+  font-size:var(--fs-h2);
+  line-height:.98;
+  letter-spacing:-.022em;
+  text-wrap:balance;
+  margin:0 0 var(--sp-4);
+}
+
+.section-head{ max-width:44rem; margin-bottom:var(--sp-7); }
+.section-head--center{ margin-inline:auto; text-align:center; }
+.section-head__lead{ color:var(--muted); font-size:var(--fs-lg); max-width:34rem; }
+.section-head--center .section-head__lead{ margin-inline:auto; }
+
+/* ---------- 5. BOTTONI ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  min-height:48px; padding:.8rem 1.5rem;
+  font:600 var(--fs-sm)/1 var(--body);
+  letter-spacing:.01em; text-decoration:none;
+  border:1.5px solid transparent; border-radius:var(--radius);
+  cursor:pointer;
+  transition:background-color var(--t-fast) var(--ease),
+             border-color var(--t-fast) var(--ease),
+             color var(--t-fast) var(--ease),
+             box-shadow var(--t-base) var(--ease);
+}
+.btn--sm{ min-height:42px; padding:.6rem 1.1rem; }
+.btn--lg{ min-height:56px; padding:1rem 1.9rem; font-size:var(--fs-base); }
+
+.btn--brass{ background:var(--brass); color:var(--ink); box-shadow:var(--sh-1); }
+.btn--brass:hover{ background:var(--brass-lt); box-shadow:var(--sh-2); }
+
+.btn--outline{ border-color:var(--ink); color:var(--ink); }
+.btn--outline:hover{ background:var(--ink); color:var(--porcelain); }
+
+.btn--outline-light{ border-color:var(--brass-lt); color:var(--brass-lt); }
+.btn--outline-light:hover{ background:var(--brass-lt); color:var(--ink); }
+
+.btn--ghost{ color:var(--muted); }
+.btn--ghost:hover{ color:var(--ink); background:rgb(11 33 34 / .05); }
+
+.btn__ext{ width:16px; height:16px; flex:none; }
+
+/* ---------- 6. HEADER ---------- */
+.site-header{
+  position:sticky; top:0; z-index:var(--z-nav);
+  background:color-mix(in srgb, var(--porcelain) 88%, transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid transparent;
+  transition:border-color var(--t-base) var(--ease),
+             background-color var(--t-base) var(--ease);
+}
+.site-header.is-stuck{
+  border-bottom-color:var(--line);
+  background:color-mix(in srgb, var(--porcelain) 96%, transparent);
+}
+.header__inner{
+  display:flex; align-items:center; gap:var(--sp-4);
+  min-height:74px;
+}
+
+.brand{
+  display:inline-flex; align-items:center; gap:.6rem;
+  text-decoration:none; flex:none;
+}
+.brand__mark{ width:34px; height:34px; color:var(--teal); }
+.brand__mark svg{ width:100%; height:100%; }
+.brand__word{
+  font-family:var(--display);
+  font-variation-settings:'wdth' 108,'wght' 700;
+  font-size:1.3rem; letter-spacing:-.01em;
+}
+.brand--lg .brand__mark{ width:52px; height:52px; color:var(--brass-lt); }
+.brand--lg .brand__word{ font-size:1.85rem; }
+
+.nav{ margin-inline:auto; }
+.nav__list{ display:flex; gap:var(--sp-5); }
+.nav__list a{
+  position:relative; display:block; padding:.4rem 0;
+  font-size:var(--fs-sm); font-weight:500; text-decoration:none;
+  color:var(--muted);
+  transition:color var(--t-fast) var(--ease);
+}
+.nav__list a::after{
+  content:''; position:absolute; left:0; right:0; bottom:0; height:1.5px;
+  background:var(--brass); scale:0 1; transform-origin:left;
+  transition:scale var(--t-base) var(--ease);
+}
+.nav__list a:hover{ color:var(--ink); }
+.nav__list a:hover::after{ scale:1 1; }
+
+.header__actions{ display:flex; align-items:center; gap:.6rem; flex:none; }
+
+.nav-toggle{
+  display:none; align-items:center; gap:.5rem;
+  min-height:42px; padding:.5rem .75rem; cursor:pointer;
+  font:600 var(--fs-sm)/1 var(--body);
+}
+.nav-toggle__bars{ display:grid; gap:5px; width:20px; }
+.nav-toggle__bars i{
+  display:block; height:1.5px; background:currentColor;
+  transition:translate var(--t-base) var(--ease), rotate var(--t-base) var(--ease);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars i:first-child{ translate:0 3.25px; rotate:45deg; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars i:last-child{ translate:0 -3.25px; rotate:-45deg; }
+
+.mobile-nav{
+  border-top:1px solid var(--line);
+  padding:var(--sp-2) clamp(1.25rem,4vw,2.5rem) var(--sp-4);
+}
+.mobile-nav a{
+  display:block; padding:.85rem 0;
+  font-size:var(--fs-lg); font-weight:500; text-decoration:none;
+  border-bottom:1px solid var(--line);
+}
+
+/* ---------- 7. HERO ---------- */
+.hero{ padding-block:clamp(1.75rem,5vw,4.5rem) var(--section-y); overflow:hidden; }
+/* Su mobile il tavolo si infila tra titolo e testo: l'immagine forte arriva
+   subito, senza far scorrere prima un muro di parole. */
+.hero__inner{
+  display:grid; gap:clamp(1.75rem,5vw,4rem);
+  grid-template-columns:1fr;
+  grid-template-areas:
+    "head"
+    "table"
+    "body";
+  align-items:center;
+}
+.hero__head{ grid-area:head; }
+.hero__table{ grid-area:table; }
+.hero__body{ grid-area:body; }
+.hero__title{
+  font-family:var(--display);
+  font-variation-settings:'wdth' 114,'wght' 780;
+  font-size:var(--fs-h1);
+  line-height:.92; letter-spacing:-.032em;
+  margin:0 0 var(--sp-4);
+}
+.hero__title em{
+  font-style:normal;
+  color:var(--teal);
+  /* Sottolineatura in ottone, spessa come i profili delle sedie.
+     text-decoration invece di box-shadow: la riga segue la parola invece di
+     allargarsi a tutta la casella inline, e l'offset stacca la riga dal testo. */
+  text-decoration:underline;
+  text-decoration-color:var(--brass);
+  text-decoration-thickness:.085em;
+  text-underline-offset:.19em;
+  text-decoration-skip-ink:none;
+}
+.hero__lead{
+  max-width:34rem; font-size:var(--fs-lg); color:var(--muted);
+  margin-bottom:var(--sp-5);
+}
+.hero__cta{ display:flex; flex-wrap:wrap; gap:.75rem; margin-bottom:var(--sp-6); }
+
+.scorecard{
+  display:flex; flex-wrap:wrap; gap:var(--sp-5);
+  padding-top:var(--sp-4); border-top:1px solid var(--line);
+}
+.scorecard__item dt{
+  font:500 var(--fs-xs)/1 var(--mono);
+  letter-spacing:.13em; text-transform:uppercase; color:var(--muted);
+  margin-bottom:.4rem;
+}
+.scorecard__item dd{
+  font-family:var(--display);
+  font-variation-settings:'wdth' 108,'wght' 700;
+  font-size:1.75rem; line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.scorecard__item dd span{ font-size:.9rem; color:var(--muted); font-weight:500; }
+
+/* ---------- 8. SIGNATURE: il tavolo rotante ---------- */
+.hero__table{ display:grid; gap:var(--sp-4); justify-items:center; }
+
+.turntable{ width:100%; max-width:34rem; }
+
+/* stage ed etichetta condividono la stessa cella: si sovrappongono da 768px in su,
+   e diventano due righe su mobile, dove al centro del piano non c'è spazio. */
+.turntable__plate{ display:grid; }
+.turntable__stage{ grid-area:1 / 1; }
+.turntable__hub{ grid-area:1 / 1; }
+
+.turntable__stage{
+  position:relative;
+  aspect-ratio:1;
+  border-radius:50%;
+  /* il piano in rovere: gli stessi toni del legno nelle fotografie */
+  background:
+    radial-gradient(circle at 38% 32%, rgb(255 255 255 / .16), transparent 55%),
+    conic-gradient(from 0deg,
+      #b9813f 0deg, #cd9a5c 42deg, #b07a3c 96deg, #c99257 150deg,
+      #ad7638 210deg, #c68e51 268deg, #b27c3e 320deg, #b9813f 360deg);
+  box-shadow:
+    inset 0 0 0 2px rgb(255 255 255 / .1),
+    inset 0 0 0 9px var(--brass),          /* rimlight in ottone */
+    inset 0 0 0 10px rgb(11 33 34 / .3),
+    var(--sh-3);
+  touch-action:none;      /* il drag orizzontale non deve rubare lo scroll verticale */
+  cursor:grab;
+}
+.turntable__stage.is-dragging{ cursor:grabbing; }
+/* anelli concentrici, come il vetro rotante dei tavoli rotondi */
+.turntable__stage::after{
+  content:''; position:absolute; inset:11px;
+  border-radius:50%; pointer-events:none;
+  background:
+    repeating-radial-gradient(circle at 50% 50%,
+      rgb(255 255 255 / .05) 0 1px, transparent 1px 13px);
+}
+
+.turntable__disc{
+  position:absolute; inset:0;
+  --rot:0deg;
+  rotate:var(--rot);
+  transition:rotate var(--t-slow) var(--ease);
+}
+.turntable__stage.is-dragging .turntable__disc{ transition:none; }
+
+.dish{
+  /* l'ordine conta: prima centro, poi ruoto attorno al centro del piano,
+     poi spingo il piatto in fuori lungo l'asse ruotato. Con le proprietà
+     individuali translate/rotate l'ordine è fisso e sbagliato per un'orbita,
+     quindi qui serve la shorthand transform. */
+  position:absolute; top:50%; left:50%;
+  width:30%; aspect-ratio:1; margin:0;
+  transform:
+    translate(-50%,-50%)
+    rotate(calc(var(--i) * var(--step, 90deg)))
+    /* 103%: il piatto attivo cresce del 7% e deve restare dentro il profilo
+       in ottone anche a 390px, senza invadere l'etichetta al centro. */
+    translateY(-103%);
+}
+.dish img{
+  width:100%; height:100%;
+  border-radius:50%; object-fit:cover;
+  /* il legno nella foto continua il legno del piano: nessun bordo */
+  filter:saturate(.94) brightness(.9);
+  opacity:.82;
+  transition:filter var(--t-base) var(--ease), opacity var(--t-base) var(--ease),
+             scale var(--t-base) var(--ease);
+}
+.dish.is-active img{
+  filter:none; opacity:1; scale:1.07;
+  box-shadow:0 10px 30px rgb(11 33 34 / .3);
+}
+
+/* perno centrale in ottone: il piano si legge come rotante anche su mobile,
+   dove l'etichetta sta sotto */
+.turntable__pivot{
+  position:absolute; top:50%; left:50%; translate:-50% -50%;
+  width:16%; aspect-ratio:1; border-radius:50%;
+  background:radial-gradient(circle at 38% 34%, var(--brass-lt), var(--brass) 55%, #8E6F14);
+  box-shadow:inset 0 0 0 1px rgb(255 255 255 / .35), 0 3px 10px rgb(11 33 34 / .4);
+  pointer-events:none;
+}
+
+/* etichetta: non ruota con il piano */
+.turntable__hub{
+  place-self:center;
+  text-align:center; pointer-events:none;
+  display:grid; gap:.3rem; align-content:center;
+}
+.turntable__kicker{
+  font:500 var(--fs-xs)/1 var(--mono);
+  letter-spacing:.16em; text-transform:uppercase;
+  color:var(--muted);
+}
+.turntable__name{
+  font-family:var(--display);
+  font-variation-settings:'wdth' 106,'wght' 720;
+  font-size:clamp(1.15rem,3.4vw,1.35rem); line-height:1.1;
+  letter-spacing:-.015em;
+  color:var(--ink); text-wrap:balance;
+}
+.turntable__note{
+  font-size:var(--fs-sm); line-height:1.45;
+  color:var(--muted);
+}
+
+/* da 768px l'etichetta è sopra il legno: serve testo chiaro e il perno sparisce */
+@media (min-width:48em){
+  .turntable__hub{ width:30%; }
+  .turntable__pivot{ display:none; }
+  .turntable__kicker{ color:rgb(255 255 255 / .72); }
+  .turntable__name{
+    font-size:clamp(.95rem,2.1vw,1.2rem);
+    color:#fff; text-shadow:0 1px 10px rgb(11 33 34 / .85);
+  }
+  .turntable__note{
+    font-size:var(--fs-xs);
+    color:rgb(255 255 255 / .85);
+    text-shadow:0 1px 8px rgb(11 33 34 / .95);
+  }
+}
+
+/* su mobile: seconda riga, sotto il piano */
+@media (max-width:47.99em){
+  .turntable__plate{ gap:var(--sp-4); }
+  .turntable__hub{ grid-area:2 / 1; width:min(22rem,92%); }
+}
+
+.turntable__controls{
+  display:flex; align-items:center; justify-content:center; gap:var(--sp-3);
+}
+.rot{
+  display:grid; place-items:center;
+  width:48px; height:48px; flex:none; cursor:pointer;
+  border:1.5px solid var(--line); border-radius:50%;
+  color:var(--ink);
+  transition:background-color var(--t-fast) var(--ease),
+             border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.rot svg{ width:20px; height:20px; }
+.rot:hover{ background:var(--ink); border-color:var(--ink); color:var(--porcelain); }
+.turntable__hint{
+  font:500 var(--fs-xs)/1.3 var(--mono);
+  letter-spacing:.08em; text-transform:uppercase;
+  color:var(--muted); text-align:center;
+}
+
+/* ---------- 9. IL WOK (blocco petrolio) ---------- */
+.wok{
+  padding-block:var(--section-y);
+  background:var(--teal);
+  background-image:
+    radial-gradient(120% 90% at 15% 0%, rgb(255 255 255 / .07), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='28' viewBox='0 0 56 28'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='1.4'%3E%3Ccircle cx='0' cy='28' r='26'/%3E%3Ccircle cx='0' cy='28' r='18'/%3E%3Ccircle cx='0' cy='28' r='10'/%3E%3Ccircle cx='28' cy='28' r='26'/%3E%3Ccircle cx='28' cy='28' r='18'/%3E%3Ccircle cx='28' cy='28' r='10'/%3E%3Ccircle cx='56' cy='28' r='26'/%3E%3Ccircle cx='56' cy='28' r='18'/%3E%3Ccircle cx='56' cy='28' r='10'/%3E%3C/g%3E%3C/svg%3E");
+  color:var(--porcelain);
+}
+.wok__inner{
+  display:grid; gap:clamp(2rem,5vw,4rem);
+  grid-template-columns:1fr; align-items:center;
+}
+.wok__img{ margin:0; }
+.wok__img img{
+  width:100%; border-radius:var(--radius);
+  box-shadow:var(--sh-3);
+}
+.wok__copy > p{ color:var(--muted-dark); max-width:34rem; font-size:var(--fs-lg); }
+.wok .eyebrow--brass{ color:var(--brass-lt); }
+
+.facts{
+  margin-top:var(--sp-5); display:grid; gap:0;
+  border-top:1px solid var(--teal-line);
+}
+.facts li{
+  display:flex; align-items:baseline; gap:var(--sp-3);
+  padding:var(--sp-3) 0; border-bottom:1px solid var(--teal-line);
+  font-size:var(--fs-sm); color:var(--muted-dark);
+}
+.facts b{
+  flex:none; min-width:2.6ch;
+  font-family:var(--display);
+  font-variation-settings:'wdth' 106,'wght' 760;
+  font-size:1.6rem; line-height:1;
+  font-variant-numeric:tabular-nums;
+  color:var(--brass-lt);
+}
+
+/* ---------- 10. MENU ---------- */
+.menu{ padding-block:var(--section-y); }
+.menu__grid{
+  display:grid; gap:var(--sp-1);
+  grid-template-columns:1fr;
+}
+.course{
+  padding:var(--sp-5);
+  background:var(--paper);
+  border:1px solid var(--line); border-radius:var(--radius);
+}
+.course h3{
+  font-family:var(--display);
+  font-variation-settings:'wdth' 108,'wght' 720;
+  font-size:var(--fs-xl); line-height:1.05; letter-spacing:-.018em;
+  margin:0 0 var(--sp-3);
+}
+.course > p{ color:var(--muted); font-size:var(--fs-sm); }
+.course__list{ display:grid; gap:.1rem; }
+.course__list li{
+  display:flex; align-items:baseline; gap:.6rem;
+  padding:.55rem 0; border-bottom:1px solid var(--line);
+  font-size:var(--fs-sm);
+}
+.course__list li:last-child{ border-bottom:0; }
+.course__list i{
+  flex:1 1 auto; min-width:1rem;
+  border-bottom:1px dotted var(--line);
+  translate:0 -.25rem;
+}
+.course__list b{
+  flex:none; font-family:var(--mono); font-weight:500;
+  font-variant-numeric:tabular-nums; color:var(--teal);
+}
+.course__soon{
+  display:inline-block; margin-top:var(--sp-3);
+  padding:.3rem .6rem; border-radius:2px;
+  background:color-mix(in srgb, var(--oak) 16%, transparent);
+  font:500 var(--fs-xs)/1.2 var(--mono);
+  letter-spacing:.1em; text-transform:uppercase;
+  color:#7A5424;                      /* 4,9:1 sul fondo chiaro */
+}
+
+/* ---------- 11. PRENOTA (blocco scuro) ---------- */
+.booking{
+  padding-block:var(--section-y);
+  background:var(--ink); color:var(--porcelain);
+}
+.booking__inner{
+  display:grid; gap:clamp(2rem,5vw,4rem);
+  grid-template-columns:1fr; align-items:center;
+}
+.booking__copy > p{ color:var(--muted-dark); font-size:var(--fs-lg); max-width:32rem; }
+.booking .eyebrow--brass{ color:var(--brass-lt); }
+.booking__cta{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:var(--sp-5); }
+.booking__img{ margin:0; }
+.booking__img img{
+  width:100%; border-radius:var(--radius); box-shadow:var(--sh-3);
+}
+
+/* ---------- 12. RECENSIONI ---------- */
+.reviews{ padding-block:var(--section-y); }
+
+.ratings{
+  display:grid; gap:var(--sp-5);
+  grid-template-columns:1fr;
+  align-items:center;
+  padding:var(--sp-5);
+  background:var(--paper);
+  border:1px solid var(--line); border-radius:var(--radius);
+  margin-bottom:var(--sp-6);
+}
+.ratings__big{ text-align:center; }
+.ratings__big dt{
+  font:500 var(--fs-xs)/1 var(--mono);
+  letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
+  margin-bottom:.5rem;
+}
+.ratings__big dd{
+  font-family:var(--display);
+  font-variation-settings:'wdth' 112,'wght' 780;
+  font-size:clamp(3.25rem,9vw,4.75rem); line-height:.9;
+  letter-spacing:-.035em;
+  font-variant-numeric:tabular-nums;
+  color:var(--teal);
+}
+.ratings__big dd span{
+  font-size:.28em; color:var(--muted); letter-spacing:0;
+  font-variation-settings:'wdth' 100,'wght' 600;
+}
+
+.ratings__bars{ display:grid; gap:var(--sp-3); }
+.bar{
+  display:grid;
+  grid-template-columns:6rem 1fr 2.5rem;
+  align-items:center; gap:var(--sp-3);
+}
+/* Ogni cella è assegnata esplicitamente. Lo ::before è il primo figlio della
+   griglia: se gli si dà solo la colonna, dt e dd si auto-posizionano DOPO di lui
+   e finiscono nella riga successiva. */
+.bar dt{ grid-area:1 / 1; font-size:var(--fs-sm); font-weight:500; }
+.bar::before{
+  content:''; grid-area:1 / 2;
+  height:6px; border-radius:99px;
+  background:linear-gradient(to right, var(--brass) 0 calc(var(--v) * 1%),
+                                       var(--line) calc(var(--v) * 1%) 100%);
+}
+.bar dd{
+  grid-area:1 / 3; text-align:right;
+  font-family:var(--mono); font-weight:500; font-size:var(--fs-sm);
+  font-variant-numeric:tabular-nums; color:var(--teal);
+}
+
+.quotes{
+  display:grid; gap:var(--sp-1);
+  grid-template-columns:1fr;
+}
+.quote{
+  display:grid; gap:var(--sp-3);
+  padding:var(--sp-5);
+  background:var(--paper);
+  border:1px solid var(--line); border-radius:var(--radius);
+}
+.quote__score{
+  font-family:var(--display);
+  font-variation-settings:'wdth' 106,'wght' 760;
+  font-size:1.5rem; line-height:1;
+  font-variant-numeric:tabular-nums;
+  color:var(--brass);
+  /* il voto è un dato, non una decorazione: resta leggibile anche senza colore */
+  border-bottom:2px solid var(--brass);
+  justify-self:start; padding-bottom:.15rem;
+}
+.quote blockquote p{ font-size:var(--fs-lg); line-height:1.5; text-wrap:pretty; }
+.quote footer{
+  font:500 var(--fs-xs)/1 var(--mono);
+  letter-spacing:.1em; text-transform:uppercase; color:var(--muted);
+}
+.quote cite{ font-style:normal; color:var(--ink); }
+
+/* ---------- 13. SEDE + ORARI ---------- */
+.place{ padding-block:var(--section-y); }
+.place__inner{
+  display:grid; gap:clamp(2rem,5vw,4rem);
+  grid-template-columns:1fr; align-items:start;
+}
+.place__copy > p{ color:var(--muted); }
+
+.hours{
+  width:100%; margin-block:var(--sp-5);
+  font-family:var(--mono); font-size:var(--fs-sm);
+  font-variant-numeric:tabular-nums;
+}
+.hours th,
+.hours td{
+  padding:.6rem .5rem;
+  border-bottom:1px solid var(--line);
+  text-align:left; font-weight:400;
+}
+.hours th{ font-family:var(--body); font-weight:500; width:8rem; }
+.hours td{ color:var(--muted); white-space:nowrap; }
+.hours--closed th,
+.hours--closed td{ color:#8A5A5A; }   /* 4,6:1 — accoppiato alla parola "Chiuso" */
+
+.place__links{ display:flex; flex-wrap:wrap; gap:.75rem; }
+
+.place__gallery{ display:grid; gap:var(--sp-2); }
+.place__gallery img{
+  width:100%; border-radius:var(--radius); box-shadow:var(--sh-2);
+}
+
+/* ---------- 14. FOOTER ---------- */
+.site-footer{
+  padding-block:var(--sp-7) var(--sp-5);
+  background:var(--ink); color:var(--porcelain);
+}
+.footer__top{
+  display:grid; gap:var(--sp-6);
+  grid-template-columns:1fr;
+  padding-bottom:var(--sp-6);
+  border-bottom:1px solid var(--teal-line);
+}
+.footer__cols{
+  display:grid; gap:var(--sp-5);
+  grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));
+}
+.footer__col h2{
+  font:500 var(--fs-xs)/1 var(--mono);
+  letter-spacing:.14em; text-transform:uppercase;
+  color:var(--brass-lt);
+  margin-bottom:var(--sp-3);
+}
+.footer__col li{ margin-bottom:.35rem; font-size:var(--fs-sm); color:var(--muted-dark); }
+.footer__col a{
+  display:inline-block; text-decoration:none;
+  /* l'area cliccabile deve arrivare a 24px: minimo WCAG 2.2 per il puntatore */
+  padding-block:.3rem;
+}
+.footer__col a:hover{ color:var(--porcelain); text-decoration:underline; }
+
+.footer__bottom{
+  display:flex; flex-wrap:wrap; justify-content:space-between; gap:var(--sp-2);
+  padding-top:var(--sp-5);
+  font:500 var(--fs-xs)/1.5 var(--mono);
+  letter-spacing:.06em; color:var(--muted-dark);
+}
+.footer__credit b{ color:var(--brass-lt); font-weight:500; }
+
+/* ---------- 14b. BARRA AZIONI MOBILE ---------- */
+/* Fuori dal flusso e sempre a portata di pollice: su telefono è la strada più
+   corta per prenotare, senza tornare in cima. Nascosta da 768px in su, dove il
+   pulsante in header è già sempre visibile. */
+.actionbar{
+  position:fixed; z-index:var(--z-nav);
+  inset:auto 0 0 0;
+  display:flex; gap:.5rem;
+  padding:.6rem clamp(.75rem,3vw,1.25rem);
+  /* la barra non finisce sotto la home bar dell'iPhone */
+  padding-bottom:calc(.6rem + env(safe-area-inset-bottom));
+  background:color-mix(in srgb, var(--porcelain) 92%, transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  border-top:1px solid var(--line);
+}
+.actionbar__btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.45rem;
+  min-height:52px; padding:.8rem 1rem;
+  font:600 var(--fs-base)/1 var(--body);
+  text-decoration:none; border-radius:var(--radius);
+  border:1.5px solid transparent;
+}
+.actionbar__btn svg{ width:19px; height:19px; flex:none; }
+.actionbar__btn--call{
+  flex:0 0 auto; min-width:7.5rem;
+  border-color:var(--ink); color:var(--ink);
+}
+.actionbar__btn--book{
+  flex:1 1 auto;
+  background:var(--brass); color:var(--ink);
+}
+.actionbar__btn--book:active{ background:var(--brass-lt); }
+
+@media (min-width:48em){
+  .actionbar{ display:none; }
+}
+/* lo spazio in fondo evita che la barra copra la fine del footer */
+@media (max-width:47.99em){
+  body{ padding-bottom:calc(4.6rem + env(safe-area-inset-bottom)); }
+}
+
+/* ---------- 15. INGRESSI ---------- */
+
+/* Hero: animazione CSS al caricamento, non legata a IntersectionObserver.
+   Se le animazioni non partono, l'elemento resta al suo stato naturale
+   (visibile): contenuto sopra la piega non deve mai dipendere dal JS. */
+.js .rise{
+  animation:rise var(--t-slow) var(--ease) both;
+  animation-delay:var(--d,0ms);
+}
+@keyframes rise{
+  from{ opacity:0; translate:0 14px; }
+}
+
+/* Sotto la piega: reveal allo scroll, con failsafe in main.js
+   che li mostra tutti se l'observer non scatta. */
+.js .reveal{
+  opacity:0; translate:0 14px;
+  transition:opacity var(--t-slow) var(--ease), translate var(--t-slow) var(--ease);
+}
+.js .reveal.is-in{ opacity:1; translate:0 0; }
+
+/* ---------- 16. BREAKPOINT ---------- */
+@media (max-width:63.99em){          /* < 1024px */
+  .nav{ display:none; }
+  .nav-toggle{ display:inline-flex; }
+}
+@media (max-width:47.99em){          /* < 768px */
+  /* Sezioni più compatte: su telefono ogni fascia risparmiata sulle sei sezioni
+     vale quasi mezzo schermo di scroll in meno. */
+  :root{ --section-y:3.25rem; }
+
+  .hide-sm{ display:none; }
+
+  /* header ridotto all'essenziale: il CTA sta nella barra in basso */
+  .header__inner{ min-height:62px; }
+  .header__actions .btn--brass{ display:none; }
+  .brand__mark{ width:30px; height:30px; }
+  .brand__word{ font-size:1.15rem; }
+
+  /* titolo un filo più contenuto, così hero e tavolo stanno in una schermata */
+  .hero__title{ font-size:clamp(2.5rem,10.5vw,3.25rem); }
+  .hero__lead{ font-size:var(--fs-base); }
+
+  /* CTA a tutta larghezza: bersagli grandi, uno per riga */
+  .hero__cta,
+  .booking__cta,
+  .place__links{ flex-direction:column; align-items:stretch; }
+  .hero__cta .btn,
+  .booking__cta .btn,
+  .place__links .btn{ width:100%; }
+
+  /* i tre numeri restano su una riga sola, ognuno con il suo spazio */
+  .scorecard{ gap:0; justify-content:space-between; }
+  .scorecard__item{ flex:1 1 0; min-width:0; }
+  .scorecard__item dd{ font-size:1.45rem; }
+
+  /* meno respiro verticale dentro le schede: meno scroll a parità di contenuto */
+  .course,
+  .quote,
+  .ratings{ padding:var(--sp-3); }
+
+  /* A 19px in una colonna da 350px le righe scendono a 30 caratteri: troppo
+     spezzettate. A 17px si torna nella fascia leggibile di 35-60. */
+  .section-head__lead,
+  .wok__copy > p,
+  .booking__copy > p,
+  .quote blockquote p{ font-size:var(--fs-base); }
+
+  /* etichetta più stretta: alla barra restano ~145px invece di 132 */
+  .bar{ grid-template-columns:5.25rem 1fr 2.25rem; gap:var(--sp-2); }
+
+  /* le due foto della sala affiancate invece che impilate: ~660px di scroll
+     in meno, e il confronto fra i due ambienti si legge meglio */
+  .place__gallery{ grid-template-columns:repeat(2,1fr); gap:var(--sp-1); }
+
+  /* orari: giorno a sinistra, le due fasce incolonnate a destra */
+  .hours th{ width:auto; }
+  .hours td{ text-align:right; }
+  .hours td:first-of-type{ padding-right:0; }
+
+  .footer__bottom{ flex-direction:column; gap:.35rem; }
+}
+
+@media (min-width:48em){             /* >= 768px */
+  .menu__grid{ grid-template-columns:repeat(2,1fr); }
+  .quotes{ grid-template-columns:repeat(3,1fr); }
+  .place__gallery{ grid-template-columns:repeat(2,1fr); }
+  .ratings{
+    grid-template-columns:auto 1fr;
+    gap:var(--sp-7);
+    padding:var(--sp-6);
+  }
+  .ratings__big{ text-align:left; }
+}
+
+@media (min-width:64em){             /* >= 1024px */
+  /* su desktop il tavolo torna a destra, a fianco di titolo e testo */
+  .hero__inner{
+    grid-template-columns:1.05fr .95fr;
+    grid-template-areas:
+      "head table"
+      "body table";
+    column-gap:clamp(2.5rem,5vw,4rem);
+    row-gap:var(--sp-4);
+    align-content:center;
+  }
+  .wok__inner{ grid-template-columns:.85fr 1fr; }
+  .booking__inner{ grid-template-columns:1fr .8fr; }
+  .place__inner{ grid-template-columns:.9fr 1.1fr; }
+  .menu__grid{ grid-template-columns:repeat(4,1fr); }
+  .footer__top{ grid-template-columns:auto 1fr; align-items:start; }
+  .footer__cols{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+
+/* ---------- 17. PREFERENZE UTENTE ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    transition-duration:.01ms !important;
+  }
+  .js .reveal{ opacity:1; translate:0 0; }
+  .js .rise{ animation:none; }
+}
